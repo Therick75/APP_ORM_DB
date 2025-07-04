@@ -1,4 +1,4 @@
-⚠️ Debido a razones desconocidas, **YouTube eliminó el video original** de la demostración técnica del sistema. Por ello, se ha subido nuevamente en un nuevo enlace público.
+## ⚠️ Debido a razones desconocidas, **YouTube eliminó el video original**. Por ello, se ha subido nuevamente en un nuevo enlace público.
 
 📺 **Nuevo enlace del video:**  
 👉 https://youtu.be/dFeHVAhVPVw
