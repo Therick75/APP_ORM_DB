@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Categorías{% endblock %}
+{% block content %}
+<h2>Categorías</h2>
+<table class="table table-bordered">
+    <thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead>
+    <tbody>
+        {% for cat in categories %}
+        <tr>
+            <td>{{ cat.id }}</td>
+            <td>{{ cat.name }}</td>
+            <td>
+                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ cat.id }}">Editar</button>
+                <a href="/categories/delete/{{ cat.id }}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+
+        <!-- Modal de edición -->
+        <div class="modal fade" id="editModal{{ cat.id }}" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form method="POST" action="/categories/update/{{ cat.id }}">
+                <div class="modal-header">
+                  <h5 class="modal-title">Editar Categoría</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <input name="name" class="form-control" value="{{ cat.name }}">
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-success">Guardar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- Botón para nuevo -->
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Nueva Categoría</button>
+<!-- Modal para crear -->
+<div class="modal fade" id="createModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title">Crear Categoría</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input name="name" class="form-control" placeholder="Nombre" required>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

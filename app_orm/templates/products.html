@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Productos{% endblock %}
+{% block content %}
+<h2>Productos</h2>
+<table class="table table-bordered">
+    <thead><tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Categoría</th><th>Acciones</th></tr></thead>
+    <tbody>
+        {% for p in products %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.price }}</td>
+            <td>{{ p.Stock }}</td>
+            <td>{{ p.category.name }}</td>
+            <td>
+                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editProduct{{ p.id }}">Editar</button>
+                <a href="/products/delete/{{ p.id }}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+
+        <!-- Modal editar producto -->
+        <div class="modal fade" id="editProduct{{ p.id }}" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form method="POST" action="/products/update/{{ p.id }}">
+                <div class="modal-header">
+                  <h5 class="modal-title">Editar Producto</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <input name="name" class="form-control" value="{{ p.name }}" required>
+                  <input name="price" class="form-control mt-2" value="{{ p.price }}" required>
+                  <input name="Stock" class="form-control mt-2" value="{{ p.Stock }}" required>
+                  <select name="CategoryId" class="form-control mt-2" required>
+                    {% for c in categories %}
+                      <option value="{{ c.id }}" {% if c.id == p.CategoryId %}selected{% endif %}>{{ c.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-success">Guardar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- Botón para nuevo -->
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createProductModal">Nuevo Producto</button>
+<!-- Modal para crear -->
+<div class="modal fade" id="createProductModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title">Crear Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input name="name" class="form-control" placeholder="Nombre" required>
+          <input name="price" class="form-control mt-2" placeholder="Precio" required>
+          <input name="Stock" class="form-control mt-2" placeholder="Stock" required>
+          <select name="CategoryId" class="form-control mt-2" required>
+            {% for c in categories %}
+              <option value="{{ c.id }}">{{ c.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

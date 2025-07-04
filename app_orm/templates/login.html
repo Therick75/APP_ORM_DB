@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<h2>Iniciar Sesión</h2>
+<form method="POST">
+    <input name="correo" class="form-control" placeholder="Correo" required>
+    <input name="password" type="password" class="form-control mt-2" placeholder="Contraseña" required>
+    <button class="btn btn-primary mt-3">Entrar</button>
+    {% if error %}<div class="text-danger mt-2">{{ error }}</div>{% endif %}
+</form>
+<a href="/register">¿No tienes cuenta? Regístrate</a>
+{% endblock %}
